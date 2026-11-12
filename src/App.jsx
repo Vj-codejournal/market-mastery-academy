@@ -12,7 +12,6 @@ import {
   Circle,
   Search,
   Download,
-  Github,
   Sun,
   Moon,
   ChevronRight,
@@ -2905,124 +2904,7 @@ const ModuleQuizCard = ({ module, quizScores, onSaveScore }) => {
   );
 };
 
-// ============================================================================
-// GITHUB PAGES DEPLOYMENT MODAL
-// ============================================================================
 
-const GithubDeployModal = ({ isOpen, onClose }) => {
-  const [copiedStep, setCopiedStep] = useState(null);
-
-  if (!isOpen) return null;
-
-  const copyCommand = (text, id) => {
-    navigator.clipboard.writeText(text);
-    setCopiedStep(id);
-    setTimeout(() => setCopiedStep(null), 2000);
-  };
-
-  const step1Cmd = `npm create vite@latest market-mastery-academy -- --template react
-cd market-mastery-academy
-npm install lucide-react tailwindcss @tailwindcss/vite`;
-
-  const step2Cmd = `git init
-git add .
-git commit -m "Launch MarketMastery Academy"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/market-mastery-academy.git
-git push -u origin main`;
-
-  const step3Cmd = `npm install gh-pages --save-dev
-# In package.json scripts add: "deploy": "vite build && gh-pages -d dist"
-npm run deploy`;
-
-  return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-700 rounded-2xl max-w-2xl w-full p-5 sm:p-6 shadow-2xl space-y-5">
-        <div className="flex items-center justify-between border-b border-slate-800 pb-4">
-          <div className="flex items-center gap-2.5">
-            <Github className="w-6 h-6 text-emerald-400" />
-            <div>
-              <h3 className="text-lg font-bold text-white">
-                Host This Academy on Your GitHub Pages (Free Forever)
-              </h3>
-              <p className="text-xs text-slate-400">
-                3-step terminal workflow to deploy this interactive application to <code className="text-emerald-400">yourusername.github.io</code>
-              </p>
-            </div>
-          </div>
-          <button
-            onClick={onClose}
-            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-
-        <div className="space-y-4 text-xs sm:text-sm text-slate-300">
-          <div>
-            <div className="flex items-center justify-between mb-1.5">
-              <span className="font-bold text-white">Step 1: Scaffold Vite + React + Lucide Icons</span>
-              <button
-                onClick={() => copyCommand(step1Cmd, 1)}
-                className="flex items-center gap-1 text-xs text-emerald-400 hover:underline cursor-pointer"
-              >
-                {copiedStep === 1 ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                {copiedStep === 1 ? 'Copied!' : 'Copy'}
-              </button>
-            </div>
-            <pre className="bg-slate-950 p-3 rounded-lg border border-slate-800 font-mono text-xs text-slate-200 overflow-x-auto">
-              {step1Cmd}
-            </pre>
-            <p className="text-xs text-slate-400 mt-1">
-              Then replace <code className="text-white">src/App.jsx</code> with this file’s code.
-            </p>
-          </div>
-
-          <div>
-            <div className="flex items-center justify-between mb-1.5">
-              <span className="font-bold text-white">Step 2: Push to Your GitHub Repository</span>
-              <button
-                onClick={() => copyCommand(step2Cmd, 2)}
-                className="flex items-center gap-1 text-xs text-emerald-400 hover:underline cursor-pointer"
-              >
-                {copiedStep === 2 ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                {copiedStep === 2 ? 'Copied!' : 'Copy'}
-              </button>
-            </div>
-            <pre className="bg-slate-950 p-3 rounded-lg border border-slate-800 font-mono text-xs text-slate-200 overflow-x-auto">
-              {step2Cmd}
-            </pre>
-          </div>
-
-          <div>
-            <div className="flex items-center justify-between mb-1.5">
-              <span className="font-bold text-white">Step 3: 1-Command Deploy to GitHub Pages</span>
-              <button
-                onClick={() => copyCommand(step3Cmd, 3)}
-                className="flex items-center gap-1 text-xs text-emerald-400 hover:underline cursor-pointer"
-              >
-                {copiedStep === 3 ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-                {copiedStep === 3 ? 'Copied!' : 'Copy'}
-              </button>
-            </div>
-            <pre className="bg-slate-950 p-3 rounded-lg border border-slate-800 font-mono text-xs text-slate-200 overflow-x-auto">
-              {step3Cmd}
-            </pre>
-          </div>
-        </div>
-
-        <div className="flex justify-end pt-2">
-          <button
-            onClick={onClose}
-            className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-bold cursor-pointer"
-          >
-            Got It, Back to Curriculum
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 // ============================================================================
 // MAIN APPLICATION COMPONENT
@@ -3136,14 +3018,7 @@ export default function App() {
               </div>
             </div>
 
-            <button
-              onClick={() => setDeployModalOpen(true)}
-              className="flex items-center gap-2 px-3 sm:px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 text-xs font-semibold transition cursor-pointer"
-            >
-              <Github className="w-4 h-4 text-emerald-400" />
-              <span className="hidden sm:inline">Deploy to GitHub Pages</span>
-              <span className="sm:hidden">GitHub</span>
-            </button>
+            
           </div>
         </div>
       </header>
@@ -3382,11 +3257,7 @@ export default function App() {
         </main>
       </div>
 
-      {/* GITHUB PAGES DEPLOYMENT MODAL */}
-      <GithubDeployModal
-        isOpen={deployModalOpen}
-        onClose={() => setDeployModalOpen(false)}
-      />
+      
     </div>
   );
 }
